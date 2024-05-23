@@ -1,7 +1,14 @@
 import { FormEvent, useState } from "react";
-import { GamePageStyles } from "./Style";
+import { CounterStyles, GamePageStyles, LineStyle } from "./Style";
 import { validateEmail } from "../../utils/validateEmail";
 import { ButtonLoader } from "../Layout/Styles";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  SlideinAnime,
+  leaderboardVariant,
+  leftVariant,
+  textVariant,
+} from "../../animations/animations";
 
 interface IForm {
   username: string;
@@ -28,6 +35,7 @@ export const GamePage = () => {
   };
   // for form
   const [form, setForm] = useState<IForm>({ email: "", username: "" });
+  // form step
   const [steps, setSteps] = useState(0);
   // For Email
   const [email, setEmail] = useState<string>("");
@@ -72,91 +80,213 @@ export const GamePage = () => {
   };
   return (
     <GamePageStyles>
-      {steps === 0 && (
-        <div className="one">
-          <div className="form">
-            <div className="tap">
-              <h1>
-                Hey techie 👋🏾 how fast can you unveil the Devfest Lagos 2024
-                Dates?
-              </h1>
-              <form onSubmit={handleSubmit}>
-                <div className="form-inp">
-                  <div className="inp">
-                    <input
-                      type="text"
-                      name="username"
-                      value={username}
-                      onChange={handleUsernameChange}
-                      className={usernameError.active ? "error-bdr" : ""}
-                      placeholder="Enter Username"
-                    />
-                    <p
-                      className="error-msg"
-                      role="alert"
-                      aria-live="assertive"
-                      aria-atomic="true"
+      <AnimatePresence mode="wait">
+        {steps === 0 && (
+          <motion.div
+            className="one"
+            initial="initial"
+            animate="final"
+            exit="exit"
+            key="ying"
+            variants={leaderboardVariant}
+          >
+            <div className="form">
+              <div className="tap">
+                <motion.h1
+                  initial="initial"
+                  whileInView="final"
+                  variants={textVariant}
+                >
+                  Hey techie 👋🏾 how fast can you unveil the Devfest Lagos 2024
+                  Dates?
+                </motion.h1>
+                <form onSubmit={handleSubmit}>
+                  <div className="form-inp">
+                    <motion.div
+                      className="inp"
+                      initial="initial"
+                      whileInView="final"
+                      viewport={{ once: true }}
+                      variants={leftVariant}
                     >
-                      {usernameError.active && usernameError.text}
-                    </p>
-                  </div>
-                  <div className="inp">
-                    <input
-                      type="email"
-                      name="email"
-                      value={email}
-                      onChange={handleEmailChange}
-                      placeholder="Enter Email Address"
-                      className={emailError.active ? "error-bdr" : ""}
-                      autoComplete="email"
-                    />
-                    <p
-                      className="error-msg"
-                      role="alert"
-                      aria-live="assertive"
-                      aria-atomic="true"
+                      <input
+                        type="text"
+                        name="username"
+                        value={username}
+                        onChange={handleUsernameChange}
+                        className={usernameError.active ? "error-bdr" : ""}
+                        placeholder="Enter Username"
+                      />
+                      <p
+                        className="error-msg"
+                        role="alert"
+                        aria-live="assertive"
+                        aria-atomic="true"
+                      >
+                        {usernameError.active && usernameError.text}
+                      </p>
+                    </motion.div>
+                    <motion.div
+                      className="inp"
+                      initial="initial"
+                      whileInView="final2"
+                      viewport={{ once: true }}
+                      variants={leftVariant}
                     >
-                      {emailError.active && emailError.text}
-                    </p>
+                      <input
+                        type="email"
+                        name="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        placeholder="Enter Email Address"
+                        className={emailError.active ? "error-bdr" : ""}
+                        autoComplete="email"
+                      />
+                      <p
+                        className="error-msg"
+                        role="alert"
+                        aria-live="assertive"
+                        aria-atomic="true"
+                      >
+                        {emailError.active && emailError.text}
+                      </p>
+                    </motion.div>
                   </div>
-                </div>
-                <div className="btn">
-                  <button
-                    type="submit"
-                    disabled={
-                      emailError.active ||
-                      usernameError.active ||
-                      usernameError.text == "" ||
-                      emailError.text == ""
-                    }
+                  <motion.div
+                    className="btn"
+                    initial="initial"
+                    whileInView="final3"
+                    viewport={{ once: true }}
+                    variants={leftVariant}
                   >
-                    {isLoading ? <ButtonLoader /> : "Start Game"}
-                  </button>
+                    <button
+                      type="submit"
+                      disabled={
+                        emailError.active ||
+                        usernameError.active ||
+                        usernameError.text == "" ||
+                        emailError.text == ""
+                      }
+                    >
+                      {isLoading ? <ButtonLoader /> : "Start Game"}
+                    </button>
+                  </motion.div>
+                </form>
+              </div>
+              <div className="desktop">
+                <motion.div
+                  className="imgs"
+                  initial="initial"
+                  whileInView="final"
+                  viewport={{ once: true }}
+                  variants={SlideinAnime}
+                >
+                  <img
+                    src="/assets/desktopBottomImg.svg"
+                    alt="bottom image 1"
+                    className=""
+                  />
+                </motion.div>
+              </div>
+              <div className="mobile">
+                <motion.div
+                  className="imgs"
+                  initial="initial"
+                  whileInView="final"
+                  viewport={{ once: true }}
+                  variants={SlideinAnime}
+                >
+                  <img
+                    src="/assets/mobileBottomImg.svg"
+                    alt="bottom image"
+                    className=""
+                  />
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+        {steps === 1 && (
+          <motion.div
+            className="two"
+            initial="initial"
+            animate="final"
+            exit="exit"
+            variants={leaderboardVariant}
+            key="ying"
+          >
+            <div className="cont">
+              <div className="head">
+                <div className="h-1">
+                  <h3>Match the pairs</h3>
+                  <img
+                    src="/assets/smallTileIcon.svg"
+                    alt="small devfest icon"
+                    className=""
+                  />
                 </div>
-              </form>
-            </div>
-            <div className="desktop">
-              <div className="imgs">
-                <img
-                  src="/assets/desktopBottomImg.svg"
-                  alt="bottom image 1"
-                  className=""
-                />
+                <div className="h-2">
+                  <span>Time spent:</span>
+                  <Counter />
+                </div>
+              </div>
+              <div className="body">
+                <div className="stats">
+                  <div className="match card">
+                    <h4>Pair Matched</h4>
+                    <Line percent={(1 / 8) * 100} />
+                    <div className="abn">
+                      <p>
+                        0<span className="a">/</span>
+                        <span className="b">8</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="moves card">
+                    <h4>Total Moves</h4>
+                    <div className="p">
+                      <p>0</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="tiles">
+                  <p>Tiles here</p>
+                  <p>Tiles here</p>
+                  <p>Tiles here</p>
+                  <p>Tiles here</p>
+                </div>
+              </div>
+              <div className="btm">
+                <div className="game-act">
+                  <button type="reset" className="reset">Reset Game</button>
+                  <button type="submit" className="end">End Game</button>
+                </div>
+                <div className="l-btn">
+                  <button type="button">See Leaderboard</button>
+                </div>
               </div>
             </div>
-            <div className="mobile">
-              <div className="imgs">
-                <img
-                  src="/assets/mobileBottomImg.svg"
-                  alt="bottom image"
-                  className=""
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-      {steps === 1 && <div className="two">Game here</div>}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </GamePageStyles>
+  );
+};
+
+export interface ILine {
+  percent: number;
+}
+export const Line: React.FC<ILine> = ({ percent }) => {
+  return (
+    <LineStyle percent={percent}>
+      <div className="inner"></div>
+    </LineStyle>
+  );
+};
+const Counter = () => {
+  return (
+    <CounterStyles>
+      <p>00:00</p>
+    </CounterStyles>
   );
 };

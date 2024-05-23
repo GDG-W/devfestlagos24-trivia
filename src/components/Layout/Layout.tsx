@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LayoutStyles, LogoStyles, PageButtonStyle } from "./Styles";
 import { IPageButton, PageButtons } from "./constants";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { GamePage } from "../Game/Game";
 import { LeaderboardPage } from "../Leaderboard/Index";
 
@@ -55,6 +55,7 @@ export const Layout: React.FC = () => {
         </div>
       </header>
       <div className="main">
+        <AnimatePresence mode="wait">
         {activePage === "Play Game" ? (
           <GamePage />
         ) : activePage === "Leaderboard" ? (
@@ -62,6 +63,7 @@ export const Layout: React.FC = () => {
         ) : (
           <></>
         )}
+        </AnimatePresence>
       </div>
     </LayoutStyles>
   );

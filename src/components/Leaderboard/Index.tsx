@@ -1,6 +1,13 @@
-import { CupIcon, UserIcon } from "../Icons/Leaderboard";
+import { truncateString } from "../../utils/truncateString";
+import {
+  CupIcon,
+  FirstPosition,
+  SecondPosition,
+  ThirdPosition,
+  UserIcon,
+} from "../Icons/Leaderboard";
 import { LeaderboardPageStyles, TableStyles, TrStyles } from "./Style";
-// import { LeaderboardData } from "./data";
+import { LeaderboardData, colorCodes } from "./data";
 
 export const LeaderboardPage = () => {
   return (
@@ -19,8 +26,9 @@ export const LeaderboardPage = () => {
               <th>Time</th>
             </tr>
           </thead>
-          <tbody>
-            {/* {LeaderboardData.map((ele, index) => (
+          <tbody
+          >
+            {LeaderboardData.map((ele, index) => (
               <TableRow
                 key={index}
                 player={ele.player}
@@ -28,7 +36,7 @@ export const LeaderboardPage = () => {
                 time={ele.time}
                 index={index}
               />
-            ))} */}
+            ))}
           </tbody>
         </TableStyles>
       </div>
@@ -44,6 +52,7 @@ export interface ITableData {
 interface ITableRow extends ITableData {
   index: number;
 }
+
 export const TableRow: React.FC<ITableRow> = ({
   player,
   moves,
@@ -51,14 +60,24 @@ export const TableRow: React.FC<ITableRow> = ({
   index,
 }) => {
   return (
-    <TrStyles>
-      <td>
-        <div className="circle">{index + 1}</div>
+    <TrStyles custom={index}>
+      <td className="pos">
+        {index === 0 ? (
+          <FirstPosition />
+        ) : index === 1 ? (
+          <SecondPosition />
+        ) : index === 2 ? (
+          <ThirdPosition />
+        ) : (
+          <div className="circle">
+            <p>{index + 1}</p>
+          </div>
+        )}
       </td>
       <td>
         <div className="fl">
-          <UserIcon colorCode="#6BC683" />
-          <p>{player}</p>
+          <UserIcon $colorCode={colorCodes[index % colorCodes.length]} />
+          <p>{truncateString(player, 20)}</p>
         </div>
       </td>
       <td>

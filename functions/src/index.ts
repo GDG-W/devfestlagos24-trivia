@@ -2,6 +2,7 @@ import "./config/postgres";
 
 import * as functions from "firebase-functions";
 
+import { attemptRoutes } from "./http/controllers/attempts/controller";
 import { errors } from "./http/middelwares/error";
 import express from "express";
 import helmet from "helmet";
@@ -11,6 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use("/sessions", sessionRoutes());
+app.use("/attempts", attemptRoutes());
 
 app.use((_req, res, _next) => {
   return res.status(404).send("Whoops! Route doesn't exist.");

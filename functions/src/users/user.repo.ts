@@ -13,6 +13,10 @@ class UserRepository {
 
     return user;
   }
+
+  async findByToken(token: string) {
+    return this.db().where("token", `\\x${token}`).first("*");
+  }
 }
 
-export const userRepo = new UserRepository();
+export const usersRepo = new UserRepository();

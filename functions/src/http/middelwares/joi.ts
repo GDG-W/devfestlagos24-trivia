@@ -16,7 +16,6 @@ export function autoValidate(schema: SchemaLike) {
   return (req: Request, _res: Response, next: NextFunction) => {
     try {
       req.body = validate(req.body, schema);
-      console.log(req.body);
       next();
     } catch (err) {
       if (err instanceof DataValidationError) {

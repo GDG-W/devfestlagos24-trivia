@@ -8,7 +8,8 @@ async function createSession(req: Request, res: Response, next: NextFunction) {
   try {
     const body: CreateSessionDTO = req.body;
     const user = await usersRepo.upsert(body);
-    res.json({ user, token: user.token.toString("hex") });
+    user.token = user.token.toString("hex");
+    res.json(user);
   } catch (err) {
     next(err);
   }

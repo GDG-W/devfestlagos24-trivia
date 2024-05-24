@@ -3,5 +3,5 @@ export interface User {
   created_at: Date;
   email_address: string;
   name: string;
-  token: Buffer;
+  token: Buffer | string;
 }

@@ -16,14 +16,21 @@ async function recordAttempt(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function getRankings(req: Request, res: Response) {}
+async function getRankings(req: Request, res: Response, next: NextFunction) {
+  try {
+    const leaderboard = await attemptsRepo.geRankings();
+    res.json(leaderboard);
+  } catch (err) {
+    next(err);
+  }
+}
 
 export function attemptRoutes() {
   const router = express.Router();
 
   router.post("/", authenticate, autoValidate(recordAttemptDTO), recordAttempt);
 
-  router.post("/rankings", getRankings);
+  router.get("/rankings", getRankings);
 
   return router;
 }

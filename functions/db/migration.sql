@@ -15,7 +15,8 @@ create table attempts (
   created_at timestamptz not null default current_timestamp,
   user_id uuid not null references users(id),
   moves smallint not null,
-  duration integer not null
+  duration integer not null,
+  score decimal(13,9) not null generated always as ((0.5/(1 + log(1 + duration))) + (0.5/(1 + log(1 + moves)))) stored
 );
 
 commit;

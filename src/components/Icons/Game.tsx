@@ -59,9 +59,9 @@ export const Firebase = () => {
           width="14.3815"
           height="39.8049"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -94,9 +94,9 @@ export const Firebase = () => {
           width="11.3556"
           height="29.9822"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -134,10 +134,11 @@ export const Chrome = () => {
       width={100}
       height={65}
       alt="Google Chrome"
-      className=""
+      className="chrome"
     />
   );
 };
+
 export const Gemini = () => {
   return (
     <img
@@ -145,7 +146,7 @@ export const Gemini = () => {
       width={70}
       height={25.842}
       alt="Gemini"
-      className=""
+      className="gemini"
     />
   );
 };
@@ -216,7 +217,7 @@ export const Tensorflow = () => {
       viewBox="0 0 51 50"
       fill="none"
     >
-      <g clip-path="url(#clip0_31_2718)">
+      <g clipPath="url(#clip0_31_2718)">
         <path
           d="M22.1664 26.9164L28.9164 23L35.5828 26.9164L28.9164 30.75L22.1664 27V26.9164ZM1.91638 15.3336L28.9164 0L49 11.4164L42.3336 23L28.9172 15.3336L8.66716 26.8336L1.91638 15.3336Z"
           fill="#F6BD3A"
@@ -252,7 +253,7 @@ export const Gmail = () => {
       viewBox="0 0 47 36"
       fill="none"
     >
-      <g clip-path="url(#clip0_31_2864)">
+      <g clipPath="url(#clip0_31_2864)">
         <mask
           id="mask0_31_2864"
           style={{ maskType: "luminance" }}
@@ -364,6 +365,169 @@ export const Flutter = () => {
           />
         </clipPath>
       </defs>
+    </svg>
+  );
+};
+export const UnRevealedIcon = () => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10.2887 14.1866V7.91328H11.8398C12.1098 7.91328 12.364 7.94488 12.6024 8.00807C12.8408 8.06839 13.0577 8.15313 13.253 8.26228C13.4656 8.37431 13.6537 8.51506 13.8174 8.68453C13.984 8.854 14.1234 9.04358 14.2354 9.25327C14.3503 9.47157 14.4393 9.71142 14.5025 9.97281C14.5657 10.2342 14.5973 10.5128 14.5973 10.8087V11.2999C14.5973 11.5842 14.5671 11.8542 14.5068 12.1099C14.4494 12.3627 14.3661 12.5939 14.2569 12.8036C14.1506 13.0075 14.0214 13.1928 13.8692 13.3594C13.7198 13.526 13.5532 13.6682 13.3694 13.7859C13.1625 13.9152 12.9327 14.0143 12.68 14.0832C12.4301 14.1522 12.1615 14.1866 11.8743 14.1866H10.2887ZM11.3357 8.75777V13.3465H11.8743C12.0581 13.3465 12.2261 13.3249 12.3784 13.2818C12.5335 13.2359 12.6728 13.1712 12.7963 13.0879C12.9227 13.0018 13.0347 12.8941 13.1324 12.7648C13.2329 12.6327 13.3148 12.4819 13.378 12.3124C13.4325 12.1688 13.4742 12.0122 13.5029 11.8428C13.5316 11.6733 13.546 11.4923 13.546 11.2999V10.8001C13.546 10.6105 13.5316 10.431 13.5029 10.2615C13.4742 10.092 13.4325 9.93547 13.378 9.79185C13.309 9.61663 13.2171 9.45864 13.1022 9.3179C12.9873 9.17428 12.8509 9.05794 12.6929 8.9689C12.578 8.90283 12.4487 8.85256 12.3051 8.8181C12.1615 8.78075 12.0064 8.76065 11.8398 8.75777H11.3357Z"
+        fill="white"
+      />
+      <g clipPath="url(#clip0_2001_2707)">
+        <path
+          d="M4.30147 10.6378L2.25954 12.1184C1.71394 12.514 1.71394 12.6833 2.25954 13.079L4.30147 14.5596"
+          stroke="#4285F4"
+          strokeWidth="1.10301"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <g clipPath="url(#clip1_2001_2707)">
+        <path
+          d="M19.4985 10.6378L21.5405 12.1184C22.0861 12.514 22.0861 12.6833 21.5405 13.079L19.4985 14.5596"
+          stroke="#F9AB00"
+          strokeWidth="1.10301"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <g clipPath="url(#clip2_2001_2707)">
+        <path
+          d="M13.8611 4.26479L12.3805 2.22286C11.9849 1.67726 11.8155 1.67726 11.4199 2.22286L9.93928 4.26479"
+          stroke="#EA4335"
+          strokeWidth="1.10301"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <g clipPath="url(#clip3_2001_2707)">
+        <path
+          d="M13.8611 19.4618L12.3805 21.5037C11.9849 22.0493 11.8155 22.0493 11.4199 21.5037L9.93928 19.4618"
+          stroke="#34A853"
+          strokeWidth="1.10301"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_2001_2707">
+          <rect
+            width="5.88271"
+            height="5.88271"
+            fill="white"
+            transform="translate(0.134521 9.65729)"
+          />
+        </clipPath>
+        <clipPath id="clip1_2001_2707">
+          <rect
+            width="5.88271"
+            height="5.88271"
+            fill="white"
+            transform="translate(17.7827 9.65729)"
+          />
+        </clipPath>
+        <clipPath id="clip2_2001_2707">
+          <rect
+            width="5.88271"
+            height="5.88271"
+            fill="white"
+            transform="matrix(0 1 -1 0 14.8413 0.0979004)"
+          />
+        </clipPath>
+        <clipPath id="clip3_2001_2707">
+          <rect
+            width="5.88271"
+            height="5.88271"
+            fill="white"
+            transform="matrix(0 1 -1 0 14.8413 17.746)"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+export const ShareIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <path
+        d="M19 4.5C19 6.15685 17.6569 7.5 16 7.5C14.3431 7.5 13 6.15685 13 4.5C13 2.84315 14.3431 1.5 16 1.5C17.6569 1.5 19 2.84315 19 4.5Z"
+        stroke="white"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M7 10C7 11.6569 5.65685 13 4 13C2.34315 13 1 11.6569 1 10C1 8.34315 2.34315 7 4 7C5.65685 7 7 8.34315 7 10Z"
+        stroke="white"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M19 15.5C19 17.1569 17.6569 18.5 16 18.5C14.3431 18.5 13 17.1569 13 15.5C13 13.8431 14.3431 12.5 16 12.5C17.6569 12.5 19 13.8431 19 15.5Z"
+        stroke="white"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M6.72852 8.74971L13.2285 5.75024M6.72852 11.2502L13.2285 14.2497"
+        stroke="white"
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+};
+export const CopyIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="22"
+      height="22"
+      viewBox="0 0 22 22"
+      fill="none"
+    >
+      <path
+        d="M8 14C8 11.1716 8 9.75736 8.87868 8.87868C9.75736 8 11.1716 8 14 8L15 8C17.8284 8 19.2426 8 20.1213 8.87868C21 9.75736 21 11.1716 21 14V15C21 17.8284 21 19.2426 20.1213 20.1213C19.2426 21 17.8284 21 15 21H14C11.1716 21 9.75736 21 8.87868 20.1213C8 19.2426 8 17.8284 8 15L8 14Z"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M15.9999 8C15.9975 5.04291 15.9528 3.51121 15.092 2.46243C14.9258 2.25989 14.7401 2.07418 14.5376 1.90796C13.4312 1 11.7875 1 8.5 1C5.21252 1 3.56878 1 2.46243 1.90796C2.25989 2.07417 2.07418 2.25989 1.90796 2.46243C1 3.56878 1 5.21252 1 8.5C1 11.7875 1 13.4312 1.90796 14.5376C2.07417 14.7401 2.25989 14.9258 2.46243 15.092C3.51121 15.9528 5.04291 15.9975 8 15.9999"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+export const CancelIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+    >
+      <path
+        d="M15.0005 0.999878L1.00049 14.9999M1.00049 0.999878L15.0005 14.9999"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 };

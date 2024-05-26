@@ -6,6 +6,7 @@ export const LeaderboardPageStyles = styled(motion.div).attrs(() => ({
   initial: "initial",
   whileInView: "final",
   exit : "exit",
+  key : "leaderpage",
   variants: leaderboardVariant,
 }))`
   //   border: 2px solid #fff;

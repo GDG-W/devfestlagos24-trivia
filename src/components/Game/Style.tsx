@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ILine } from "./Game";
 
 export const GamePageStyles = styled.div`
@@ -190,10 +190,6 @@ export const GamePageStyles = styled.div`
           }
         }
       }
-      .tiles{
-        border: 2px solid #fff;
-        margin-top: 1.19rem;
-      }
       .btm {
         display: flex;
         justify-content: space-between;
@@ -261,9 +257,10 @@ export const GamePageStyles = styled.div`
     .two {
       padding: 1rem;
       padding-top: 2rem;
+      padding-bottom: 2rem;
       .cont {
         width: 100%;
-        padding: 1rem 0.84rem 1.67rem 0.84rem;
+        padding: 1rem 0.84rem 1.25rem 0.84rem;
         .stats {
           h4 {
             font-size: 0.75rem;
@@ -339,7 +336,7 @@ export const GamePageStyles = styled.div`
     }
     .two {
       .cont {
-        width: 50%;
+        width: 45%;
         padding: 1.5rem 1.25rem 1.5rem 1.25rem;
       }
     }
@@ -373,5 +370,70 @@ export const CounterStyles = styled.div`
     p {
       font-size: 0.88531rem;
     }
+  }
+`;
+
+export const TilesListStyle = styled.div`
+  margin-top: 1.19rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(5.8125rem, 100%), 1fr));
+  column-gap: 1.25rem;
+  row-gap: 0.75rem;
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(min(4.23694rem, 100%), 1fr)
+    );
+    column-gap: 0.91rem;
+    row-gap: 0.65rem;
+  }
+`;
+interface ITileStyle {
+  $isRevealed: boolean;
+}
+export const TileStyle = styled.div<ITileStyle>`
+  width: 100%;
+  cursor: pointer;
+  height: 6.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  background: #000;
+  border: 2px solid transparent;
+  overflow: hidden;
+  @media (max-width: 998px) {
+    .gemini {
+      object-fit: contain;
+    }
+  }
+  @media (max-width: 500px) {
+    padding: 1.09469rem;
+    height: 4.59588rem;
+    .gemini {
+      width: 3.21713rem;
+      height: 1.18763rem;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+    .chrome {
+      width: 4.59588rem;
+      height: 2.98731rem;
+      flex-shrink: 0;
+    }
+  }
+  @media (max-width: 375px) {
+    // height: 4.59588rem;
+  }
+  // if the tile is revealed, we dont want the hover effect
+  @media (min-width: 998px) {
+    ${(props) =>
+      !props.$isRevealed &&
+      css`
+        &:hover {
+          border: 2px solid #f9ab00;
+          background: rgba(249, 171, 0, 0.15);
+        }
+      `}
   }
 `;

@@ -1,7 +1,7 @@
 export const textVariant = {
   initial: {
     opacity: 0,
-    y: 20,
+    y: -20,
   },
   final: {
     opacity: 1,
@@ -43,7 +43,7 @@ export const leaderboardVariant = {
     opacity: 1,
     y: -20,
     transition: {
-      duration: 0.6,
+      duration: 0.25,
     },
   },
 };
@@ -59,7 +59,7 @@ export const parentVariants = {
 export const SlideinAnime = {
   initial: {
     opacity: 0,
-    scale: 0.65,
+    scale: 0.5,
   },
   final: {
     opacity: 1,

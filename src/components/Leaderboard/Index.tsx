@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { truncateString } from "../../utils/truncateString";
 import {
   CupIcon,
@@ -6,10 +7,32 @@ import {
   ThirdPosition,
   UserIcon,
 } from "../Icons/Leaderboard";
-import { LeaderboardPageStyles, TableStyles, TrStyles } from "./Style";
-import { LeaderboardData, colorCodes } from "./data";
+import {
+  LeaderboardPageStyles,
+  NoDataStyles,
+  TableStyles,
+  TrStyles,
+} from "./Style";
+import { colorCodes } from "./data";
+import { BACKEND_URL } from "../../libs/config";
+import axios from "axios";
+import { ButtonLoader } from "../Layout/Styles";
+import { formatSeconds } from "../../utils/formatTime";
 
 export const LeaderboardPage = () => {
+  const [leaderboardData, setLeaderboardData] = useState<ITableData[] | null>(
+    null
+  );
+  useEffect(() => {
+    axios
+      .get(`${BACKEND_URL}/attempts/rankings`)
+      .then((res) => {
+        // console.log(res.data);
+        setLeaderboardData(res.data);
+      })
+      /* eslint-disable @typescript-eslint/no-explicit-any */
+      .catch((error: any) => console.log(error));
+  }, []);
   return (
     <LeaderboardPageStyles>
       <div className="cont">
@@ -26,65 +49,75 @@ export const LeaderboardPage = () => {
               <th>Time</th>
             </tr>
           </thead>
-          <tbody
-          >
-            {LeaderboardData.map((ele, index) => (
-              <TableRow
-                key={index}
-                player={ele.player}
-                moves={ele.moves}
-                time={ele.time}
-                index={index}
-              />
-            ))}
+          <tbody>
+            {leaderboardData &&
+              leaderboardData?.length > 0 &&
+              leaderboardData.map((ele, index) => (
+                <TableRow
+                  key={index}
+                  index={index}
+                  {...ele}
+                />
+              ))}
           </tbody>
         </TableStyles>
+        {leaderboardData === null && <ButtonLoader />}
+        {leaderboardData !== null && leaderboardData.length === 0 && (
+          <NoDataStyles>
+            <h2>No Data Found</h2>
+          </NoDataStyles>
+        )}
       </div>
     </LeaderboardPageStyles>
   );
 };
 
 export interface ITableData {
-  player: string;
+  name: string;
+  position: string;
   moves: number;
-  time: string;
+  duration: number;
+  score?: number;
+  id: string;
+  email_address?: string;
 }
 interface ITableRow extends ITableData {
   index: number;
 }
 
 export const TableRow: React.FC<ITableRow> = ({
-  player,
+  name,
   moves,
-  time,
+  duration,
   index,
+  position,
 }) => {
   return (
     <TrStyles custom={index}>
       <td className="pos">
-        {index === 0 ? (
+        {position === "1" ? (
           <FirstPosition />
-        ) : index === 1 ? (
+        ) : position === "2" ? (
           <SecondPosition />
-        ) : index === 2 ? (
+        ) : position === "3" ? (
           <ThirdPosition />
         ) : (
           <div className="circle">
-            <p>{index + 1}</p>
+            <p>{position}</p>
           </div>
         )}
       </td>
       <td>
         <div className="fl">
           <UserIcon $colorCode={colorCodes[index % colorCodes.length]} />
-          <p>{truncateString(player, 20)}</p>
+          <p>{truncateString(name, 20)}</p>
         </div>
       </td>
       <td>
         <p>{moves}</p>
       </td>
       <td>
-        <p>{time}</p>
+        <p>{formatSeconds(duration)}</p>
       </td>
     </TrStyles>
   );

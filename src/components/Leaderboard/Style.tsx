@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { leaderboardVariant} from "../../animations/animations";
+import { leaderboardVariant } from "../../animations/animations";
 import { motion } from "framer-motion";
 
 export const LeaderboardPageStyles = styled(motion.div).attrs(() => ({
   initial: "initial",
   whileInView: "final",
-  exit : "exit",
-  key : "leaderpage",
+  exit: "exit",
+  key: "leaderpage",
   variants: leaderboardVariant,
 }))`
   //   border: 2px solid #fff;
@@ -160,5 +160,20 @@ export const TrStyles = styled(motion.tr).attrs<TrStylesProps>((props) => ({
         font-size: 0.75rem;
       }
     }
+  }
+`;
+
+export const NoDataStyles = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60%;
+  h2 {
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2rem; /* 133.333% */
+    letter-spacing: -0.03rem;
   }
 `;

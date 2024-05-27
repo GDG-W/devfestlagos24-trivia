@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react";
 import {
   CounterStyles,
   GamePageStyles,
@@ -21,6 +21,9 @@ import { RandomizeData } from "../../utils/randomization";
 import { useAppDispatch } from "../../redux/hooks";
 import { setGameStart } from "../../redux/userSlice";
 import { InfoModal, ShareModal } from "../Layout/Layout";
+import axios from "axios";
+import { BACKEND_URL } from "../../libs/config";
+import Cookies from "js-cookie";
 
 interface IForm {
   username: string;
@@ -73,7 +76,7 @@ export const GamePage = () => {
     }
   };
   // handle signup form
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form submission
     if (
       !usernameError.active &&
@@ -81,14 +84,38 @@ export const GamePage = () => {
       usernameError.text !== "" &&
       emailError.text !== ""
     ) {
-      setIsLoading(true);
-      // mimick api call
-      setTimeout(() => {
+      //api call
+      const body = {
+        name: form.username,
+        email_address: form.email,
+      };
+      /* eslint-disable @typescript-eslint/no-explicit-any */
+      try {
+        setIsLoading(true);
+        const { data } = await axios.post(`${BACKEND_URL}/sessions`, body);
+        if (data) {
+          setIsLoading(false);
+          const inSetTime = new Date(new Date().getTime() + 30 * 60 * 1000);
+          // console.log(inSetTime, data.token);
+          Cookies.set("token", data.token, { expires: inSetTime });
+          dispatch(setGameStart(true));
+          setSteps(1);
+        }
+      } catch (error: any) {
+        console.log(error);
+        if (error.response) {
+          setEmailError({
+            active: true,
+            text: error.response.data.message,
+          });
+        } else {
+          setEmailError({
+            active: true,
+            text: error.message,
+          });
+        }
         setIsLoading(false);
-        console.log(form);
-        dispatch(setGameStart(true));
-        setSteps(1);
-      }, 2000);
+      }
     }
   };
 
@@ -132,8 +159,9 @@ export const GamePage = () => {
               const countRevealed = newAllTiles.filter(
                 (ele) => ele.isRevealed
               ).length;
-              if (countRevealed === 8) {
+              if (countRevealed === 16) {
                 setHasUserEnded(true);
+                setGameEnd(true); // end game automatically
                 // dispatch(setGameStart(false));
               }
               // if this is 8, set counter end
@@ -141,7 +169,7 @@ export const GamePage = () => {
               setAllTiles(newAllTiles);
             }
             setSelectedTiles(null);
-          }, 1000);
+          }, 850);
         }
       }
     }
@@ -160,11 +188,8 @@ export const GamePage = () => {
   const [hasGameEnded, setGameEnd] = useState(false);
   const [goToGamePage, setGoToGamePage] = useState(false);
   const endGame = () => {
-    if (matches === 8) {
-      setGameEnd(true);
-    } else {
-      setGoToGamePage(true);
-    }
+    // if the user chooses to end the game while it's in progress
+    setGoToGamePage(true);
   };
   const handleGoToGamePage = () => {
     setSteps(0);
@@ -177,6 +202,32 @@ export const GamePage = () => {
   useEffect(() => {
     setAllTiles(RandomizeData(AllTiles));
   }, []);
+
+  const [time, setTime] = useState(0);
+
+  useEffect(() => {
+    if (hasGameEnded && moves !== 0 && time !== 0) {
+      const token = Cookies.get("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const body = {
+        moves: moves,
+        duration: time,
+      };
+      axios
+        .post(`${BACKEND_URL}/attempts`, body, config)
+        .then((res) => {
+          // console.log(res.data);
+          console.log(res);
+        })
+        /* eslint-disable @typescript-eslint/no-explicit-any */
+        .catch((error: any) => console.log(error));
+    }
+  }, [hasGameEnded, moves, time]);
+
 
   return (
     <GamePageStyles>
@@ -198,7 +249,7 @@ export const GamePage = () => {
                   variants={textVariant}
                 >
                   Hey techie 👋🏾 how fast can you unveil the Devfest Lagos 2024
-                  Dates?
+                  dates?
                 </motion.h1>
                 <form onSubmit={handleSubmit}>
                   <div className="form-inp">
@@ -327,7 +378,7 @@ export const GamePage = () => {
                 </div>
                 <div className="h-2">
                   <span>Time spent:</span>
-                  <Counter hasEnded={hasUserEnded} key={resetBool.toString()} />
+                  <Counter hasEnded={hasUserEnded} key={resetBool.toString()} handleTime={setTime} />
                 </div>
               </div>
               <div className="body">
@@ -415,12 +466,14 @@ export const Line: React.FC<ILine> = ({ percent }) => {
 };
 interface ICounter {
   hasEnded: boolean;
+  handleTime : Dispatch<SetStateAction<number>>;
 }
-const Counter: React.FC<ICounter> = ({ hasEnded }) => {
+const Counter: React.FC<ICounter> = ({ hasEnded, handleTime }) => {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   useEffect(() => {
     if (hasEnded) {
+      handleTime((minutes * 60) + seconds);
       return; // Exit the effect early if hasEnded is true
     }
     const countdown = setInterval(() => {
@@ -467,12 +520,12 @@ export const Tile: React.FC<ITileFunc> = ({
           {isRevealed || isSelected ? (
             <motion.div
               key="revealed"
-              initial={{ opacity: 0, x: -100 }}
+              initial={{ opacity: 0, x: -50 }}
               animate={{
                 opacity: isRevealed || isSelected ? 1 : 0,
                 x: isRevealed || isSelected ? 0 : -100,
               }} // Animate to: visible and in place
-              exit={{ opacity: 0, x: 100 }}
+              exit={{ opacity: 0, x: 50 }}
               transition={{ duration: 0.1 }}
             >
               {img}
@@ -480,12 +533,12 @@ export const Tile: React.FC<ITileFunc> = ({
           ) : (
             <motion.div
               key="unrevealed"
-              initial={{ opacity: 0, x: -100 }}
+              initial={{ opacity: 0, x: -50 }}
               animate={{
                 opacity: 1,
                 x: 0,
               }} // Animate to: visible and in place
-              exit={{ opacity: 0, x: 100 }}
+              exit={{ opacity: 0, x: 50 }}
               transition={{ duration: 0.1 }}
             >
               <UnRevealedIcon />

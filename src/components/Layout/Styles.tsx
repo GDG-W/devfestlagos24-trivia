@@ -7,14 +7,14 @@ export const LogoStyles = styled.div`
       display: none;
     }
     img {
-      width: 5.8125rem;
-      height: 3.4875rem;
+      width: 100%;
+      height: auto;
     }
   }
   @media (min-width: 728px) {
     img {
-      width: 9.375rem;
-      height: 5.25rem;
+      width: 100%;
+      height: auto;
       flex-shrink: 0;
     }
     .mobile {

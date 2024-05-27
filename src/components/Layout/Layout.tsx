@@ -11,7 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { GamePage } from "../Game/Game";
 import { LeaderboardPage } from "../Leaderboard/Index";
 import { CancelIcon, CopyIcon, ShareIcon } from "../Icons/Game";
-import { leaderboardVariant, textVariant } from "../../animations/animations";
+import { contVariant, leaderboardVariant, textVariant } from "../../animations/animations";
 import { FBIcon, InstaIcon, WhatsappIcon, XIcon } from "../Icons/Socials";
 import { CopyToClipboard } from "../../utils/copyText";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -131,7 +131,12 @@ export const ShareModal: React.FC<IShareModal> = ({
   };
   return (
     <FlexModalStyles>
-      <div className="cont">
+      <motion.div
+        className="cont"
+        variants={contVariant}
+        initial="initial"
+        animate="animate"
+      >
         <div className="one">
           <motion.div
             className="h"
@@ -143,7 +148,7 @@ export const ShareModal: React.FC<IShareModal> = ({
             <h4>Great Job!</h4>
           </motion.div>
           <motion.p variants={textVariant} initial="initial" animate="final2">
-            Devfest Lagos 2024 Dates:
+            Devfest Lagos 2024 dates:
           </motion.p>
           <motion.h3
             initial={{ scale: 0, x: -100 }} // Initial scale and position
@@ -207,7 +212,7 @@ export const ShareModal: React.FC<IShareModal> = ({
             )}
           </AnimatePresence>
         </div>
-      </div>
+      </motion.div>
     </FlexModalStyles>
   );
 };

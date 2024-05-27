@@ -113,3 +113,15 @@ export const rowVariant = {
     },
   }),
 };
+
+export const contVariant = {
+  initial: { scale: 0.8, opacity: 0 },
+  animate: {
+    scale: [0.8, 1.05, 1],
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: 'easeInOut',
+    },
+  },
+};

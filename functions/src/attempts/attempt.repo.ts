@@ -15,7 +15,7 @@ class AttemptsRepository {
       select users.name, users.email_address, users.id, attempts.created_at,attempts.score,moves,duration,
       row_number() over(partition by users.id order by score desc) as pos 
       from attempts inner join users on attempts.user_id=users.id
-    ), arrangements as (select id,name,email_address,moves,duration,score from scores where pos=1 order by score desc,created_at asc limit 50)
+    ), arrangements as (select id,name,email_address,moves,duration,score from scores where pos=1 order by score desc,created_at asc)
     select *, row_number() over() as position from arrangements
     `);
     return results.rows;

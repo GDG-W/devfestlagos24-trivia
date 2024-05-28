@@ -6,6 +6,6 @@ export interface RecordAttemptDTO {
 }
 
 export const recordAttemptDTO = Joi.object().keys({
-  moves: Joi.number().required().min(1),
-  duration: Joi.number().required().min(1),
+  moves: Joi.number().required().min(8),
+  duration: Joi.number().required().min(3),
 });

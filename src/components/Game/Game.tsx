@@ -19,7 +19,7 @@ import { AllTiles } from "./constants";
 import { UnRevealedIcon } from "../Icons/Game";
 import { RandomizeData } from "../../utils/randomization";
 import { useAppDispatch } from "../../redux/hooks";
-import { setGameStart } from "../../redux/userSlice";
+import { setGameStart, setHasCanceledGame } from "../../redux/userSlice";
 import { InfoModal, ShareModal } from "../Layout/Layout";
 import axios from "axios";
 import { BACKEND_URL } from "../../libs/config";
@@ -201,6 +201,7 @@ export const GamePage = () => {
   };
   useEffect(() => {
     setAllTiles(RandomizeData(AllTiles));
+    dispatch(setHasCanceledGame(false));
   }, []);
 
   const [time, setTime] = useState(0);
@@ -220,8 +221,9 @@ export const GamePage = () => {
       axios
         .post(`${BACKEND_URL}/attempts`, body, config)
         .then((res) => {
-          // console.log(res.data);
-          console.log(res);
+          if(res.data){
+            console.log("done");
+          }
         })
         /* eslint-disable @typescript-eslint/no-explicit-any */
         .catch((error: any) => console.log(error));
@@ -447,6 +449,7 @@ export const GamePage = () => {
           <ShareModal
             restartGame={reset}
             closeModal={() => setGameEnd(false)}
+            time={time}
           />
         )}
       </AnimatePresence>

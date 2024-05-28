@@ -11,7 +11,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { GamePage } from "../Game/Game";
 import { LeaderboardPage } from "../Leaderboard/Index";
 import { CancelIcon, CopyIcon, ShareIcon } from "../Icons/Game";
-import { contVariant, leaderboardVariant, textVariant } from "../../animations/animations";
+import {
+  contVariant,
+  leaderboardVariant,
+  textVariant,
+} from "../../animations/animations";
 import { FBIcon, InstaIcon, WhatsappIcon, XIcon } from "../Icons/Socials";
 import { CopyToClipboard } from "../../utils/copyText";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -21,6 +25,7 @@ import {
   userSelector,
 } from "../../redux/userSlice";
 import { WEBSITE_URL } from "../../libs/config";
+import { formatSeconds } from "../../utils/formatTime";
 
 export const LogoComp = () => {
   return (
@@ -114,10 +119,12 @@ export const Layout: React.FC = () => {
 interface IShareModal {
   closeModal: () => void;
   restartGame: () => void;
+  time : number;
 }
 export const ShareModal: React.FC<IShareModal> = ({
   closeModal,
   restartGame,
+  time
 }) => {
   const [isCopied, setIsCopied] = useState(false);
   const copy = () => {
@@ -129,6 +136,11 @@ export const ShareModal: React.FC<IShareModal> = ({
     closeModal();
     restartGame();
   };
+  const dispatch = useAppDispatch();
+  const handleCancel = () => {
+    closeModal();
+    dispatch(setHasCanceledGame(true));
+  };
   return (
     <FlexModalStyles>
       <motion.div
@@ -137,16 +149,30 @@ export const ShareModal: React.FC<IShareModal> = ({
         initial="initial"
         animate="animate"
       >
+        <div className="abs" onClick={handleCancel}>
+          <CancelIcon />
+        </div>
         <div className="one">
-          <motion.div
-            className="h"
-            variants={textVariant}
-            initial="initial"
-            animate="final"
-          >
-            <img src="/assets/popper.svg" alt="" className="" />
-            <h4>Great Job!</h4>
-          </motion.div>
+          <div className="sp">
+            <motion.div
+              className="h"
+              variants={textVariant}
+              initial="initial"
+              animate="final"
+            >
+              <img src="/assets/popper.svg" alt="" className="" />
+              <h4>Great Job!</h4>
+            </motion.div>
+            <motion.div
+              className="tme"
+              variants={textVariant}
+              initial="initial"
+              animate="final2"
+            >
+              <p>Time spent:</p>
+              <h4>{formatSeconds(time)}</h4>
+            </motion.div>
+          </div>
           <motion.p variants={textVariant} initial="initial" animate="final2">
             Devfest Lagos 2024 dates:
           </motion.p>

@@ -220,6 +220,7 @@ export const GamePageStyles = styled.div`
             width: fit-content;
             white-space: nowrap;
             padding-right: 0.625rem;
+            border-radius: 0.25rem;
           }
           .reset {
             background: #302f2f;

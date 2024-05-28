@@ -155,6 +155,32 @@ export const FlexModalStyles = styled(ModalStyles)`
     }
   }
   .one {
+    .sp {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      .tme {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        p {
+          color: #606060;
+          font-size: 0.75rem;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          margin-top: 0rem;
+        }
+        h4 {
+          color: #fff;
+          font-size: 1rem;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+        }
+      }
+    }
     h3 {
       color: #f9ab00;
       font-size: 2rem;
@@ -176,12 +202,14 @@ export const FlexModalStyles = styled(ModalStyles)`
     align-items: center;
     flex-direction: column;
     gap: 1.5rem;
+    width: 100%;
     .btm {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      width: 100%;
       button {
-        width: 12.5rem;
+        width: 100%;
         height: 2.75rem;
         padding: 0.625rem;
         border-radius: 0.25rem;
@@ -250,6 +278,15 @@ export const FlexModalStyles = styled(ModalStyles)`
       background: #302f2f;
     }
   }
+  .cont {
+    position: relative;
+    .abs {
+      position: absolute;
+      top: 1rem;
+      left: 90%;
+      cursor: pointer;
+    }
+  }
 
   @media (max-width: 500px) {
     .cont {
@@ -268,6 +305,14 @@ export const FlexModalStyles = styled(ModalStyles)`
       }
       p {
         font-size: 0.875rem;
+      }
+      .sp{
+        h4{
+          font-size: 0.875rem;
+        }
+        p{
+          font-size: 0.625rem;
+        }
       }
     }
     .btn {
@@ -289,8 +334,8 @@ export const FlexModalStyles = styled(ModalStyles)`
           padding: 0.40375rem;
           gap: 0.40375rem;
         }
-        .social{
-          span{
+        .social {
+          span {
             font-size: 0.40375rem;
           }
         }
@@ -302,6 +347,11 @@ export const FlexModalStyles = styled(ModalStyles)`
         border: 1.292px solid #4285f4;
       }
     }
+    .abs {
+      svg {
+        scale: 0.67;
+      }
+    }
   }
   @media (min-width: 998px) {
     .cont {
@@ -311,23 +361,11 @@ export const FlexModalStyles = styled(ModalStyles)`
 `;
 
 export const InfoModalStyle = styled(FlexModalStyles)`
-  .one p{
-    color : #fff;
+  .one p {
+    color: #fff;
   }
-  .cont{
-    position: relative;
-    .abs{
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      cursor: pointer;
-    }
+  p,
+  h3 {
+    text-align: left;
   }
-  @media (max-width: 500px) {
-    .abs {
-      svg{
-        scale: 0.67;
-      }
-    }
-  }
-`
+`;

@@ -1,4 +1,10 @@
-import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react";
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import {
   CounterStyles,
   GamePageStyles,
@@ -20,7 +26,7 @@ import { UnRevealedIcon } from "../Icons/Game";
 import { RandomizeData } from "../../utils/randomization";
 import { useAppDispatch } from "../../redux/hooks";
 import { setGameStart, setHasCanceledGame } from "../../redux/userSlice";
-import { InfoModal, ShareModal } from "../Layout/Layout";
+import { InfoModal, ResetModal, ShareModal } from "../Layout/Layout";
 import axios from "axios";
 import { BACKEND_URL } from "../../libs/config";
 import Cookies from "js-cookie";
@@ -70,6 +76,8 @@ export const GamePage = () => {
     // Perform email validation
     if (value.trim().length < 1) {
       setUsernameError({ active: true, text: "Username Cannot be empty" });
+    } else if (value.trim().length < 2) {
+      setUsernameError({ active: true, text: "Username too small" });
     } else {
       setUsernameError({ active: false, text: "Number Entered" });
       setForm({ ...form, username: value });
@@ -96,8 +104,8 @@ export const GamePage = () => {
         if (data) {
           setIsLoading(false);
           const inSetTime = new Date(new Date().getTime() + 30 * 60 * 1000);
-          // console.log(inSetTime, data.token);
           Cookies.set("token", data.token, { expires: inSetTime });
+          Cookies.set("id", data.id, { expires: inSetTime });
           dispatch(setGameStart(true));
           setSteps(1);
         }
@@ -184,7 +192,7 @@ export const GamePage = () => {
     setResetBool((prev) => !prev);
     setHasUserEnded(false);
   };
-
+  const [showResetModal, setShowResetModal] = useState(false);
   const [hasGameEnded, setGameEnd] = useState(false);
   const [goToGamePage, setGoToGamePage] = useState(false);
   const endGame = () => {
@@ -207,7 +215,7 @@ export const GamePage = () => {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
-    if (hasGameEnded && moves !== 0 && time !== 0) {
+    if (hasGameEnded && moves > 8 && time !== 5) {
       const token = Cookies.get("token");
       const config = {
         headers: {
@@ -221,7 +229,7 @@ export const GamePage = () => {
       axios
         .post(`${BACKEND_URL}/attempts`, body, config)
         .then((res) => {
-          if(res.data){
+          if (res.data) {
             console.log("done");
           }
         })
@@ -229,7 +237,6 @@ export const GamePage = () => {
         .catch((error: any) => console.log(error));
     }
   }, [hasGameEnded, moves, time]);
-
 
   return (
     <GamePageStyles>
@@ -380,7 +387,11 @@ export const GamePage = () => {
                 </div>
                 <div className="h-2">
                   <span>Time spent:</span>
-                  <Counter hasEnded={hasUserEnded} key={resetBool.toString()} handleTime={setTime} />
+                  <Counter
+                    hasEnded={hasUserEnded}
+                    key={resetBool.toString()}
+                    handleTime={setTime}
+                  />
                 </div>
               </div>
               <div className="body">
@@ -418,7 +429,11 @@ export const GamePage = () => {
               </div>
               <div className="btm">
                 <div className="game-act">
-                  <button type="reset" className="reset" onClick={reset}>
+                  <button
+                    type="reset"
+                    className="reset"
+                    onClick={() => setShowResetModal(true)}
+                  >
                     Reset Game
                   </button>
                   <button type="submit" className="end" onClick={endGame}>
@@ -453,6 +468,14 @@ export const GamePage = () => {
           />
         )}
       </AnimatePresence>
+      <AnimatePresence>
+        {showResetModal && (
+          <ResetModal
+            closeModal={() => setShowResetModal(false)}
+            handleAction={reset}
+          />
+        )}
+      </AnimatePresence>
     </GamePageStyles>
   );
 };
@@ -469,14 +492,14 @@ export const Line: React.FC<ILine> = ({ percent }) => {
 };
 interface ICounter {
   hasEnded: boolean;
-  handleTime : Dispatch<SetStateAction<number>>;
+  handleTime: Dispatch<SetStateAction<number>>;
 }
 const Counter: React.FC<ICounter> = ({ hasEnded, handleTime }) => {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   useEffect(() => {
     if (hasEnded) {
-      handleTime((minutes * 60) + seconds);
+      handleTime(minutes * 60 + seconds);
       return; // Exit the effect early if hasEnded is true
     }
     const countdown = setInterval(() => {

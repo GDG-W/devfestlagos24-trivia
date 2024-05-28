@@ -53,6 +53,7 @@ export const Layout: React.FC = () => {
       const newPageButtons = pageButtons.map((ele) => {
         return { ...ele, isActive: ele.name === name };
       });
+      // if the name is play game, clear cookies
       setActivePage(newPageButtons.find((ele) => ele.isActive === true)?.name);
       setPageButtons(newPageButtons);
     } else {
@@ -119,12 +120,12 @@ export const Layout: React.FC = () => {
 interface IShareModal {
   closeModal: () => void;
   restartGame: () => void;
-  time : number;
+  time: number;
 }
 export const ShareModal: React.FC<IShareModal> = ({
   closeModal,
   restartGame,
-  time
+  time,
 }) => {
   const [isCopied, setIsCopied] = useState(false);
   const copy = () => {
@@ -268,7 +269,62 @@ export const InfoModal: React.FC<IInfoModal> = ({ closeModal, endGame }) => {
           <CancelIcon />
         </div>
         <div className="one">
-          <h3>Finish game first?</h3>
+          <h3>{endGame ? "End Game?" : "Finish game first?"}</h3>
+          <p>
+            {endGame
+              ? "This action would end the current game and you would be redirected to the home page."
+              : "This action would end the current game and you would have to start over."}
+          </p>
+        </div>
+        <div className="btn">
+          {endGame ? (
+            <div className="btm">
+              <button type="button" className="share" onClick={handleAction}>
+                <p>End game</p>
+              </button>
+              <button type="button" className="play" onClick={continueGame}>
+                <p>Back to game</p>
+              </button>
+            </div>
+          ) : (
+            <div className="btm">
+              <button type="button" className="share" onClick={continueGame}>
+                <p>Finish game</p>
+              </button>
+              <button type="button" className="play" onClick={handleAction}>
+                <p>Go to leaderboard</p>
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </InfoModalStyle>
+  );
+};
+
+interface IResetModal {
+  closeModal: () => void;
+  handleAction: () => void;
+}
+export const ResetModal: React.FC<IResetModal> = ({
+  closeModal,
+  handleAction,
+}) => {
+  const continueGame = () => {
+    closeModal();
+  };
+  const handleReset = () => {
+    handleAction();
+    closeModal();
+  };
+  return (
+    <InfoModalStyle>
+      <div className="cont">
+        <div className="abs" onClick={continueGame}>
+          <CancelIcon />
+        </div>
+        <div className="one">
+          <h3>Reset Game?</h3>
           <p>
             This action would end the current game and you would have to start
             over.
@@ -276,11 +332,11 @@ export const InfoModal: React.FC<IInfoModal> = ({ closeModal, endGame }) => {
         </div>
         <div className="btn">
           <div className="btm">
-            <button type="button" className="share" onClick={continueGame}>
-              <p>Finish Game</p>
+            <button type="button" className="share" onClick={handleReset}>
+              <p>Reset game</p>
             </button>
-            <button type="button" className="play" onClick={handleAction}>
-              <p>Go to {endGame ? "Game Page" : "Leaderboard"}</p>
+            <button type="button" className="play" onClick={continueGame}>
+              <p>Back to game</p>
             </button>
           </div>
         </div>

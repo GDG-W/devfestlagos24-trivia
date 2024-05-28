@@ -306,11 +306,11 @@ export const FlexModalStyles = styled(ModalStyles)`
       p {
         font-size: 0.875rem;
       }
-      .sp{
-        h4{
+      .sp {
+        h4 {
           font-size: 0.875rem;
         }
-        p{
+        p {
           font-size: 0.625rem;
         }
       }
@@ -319,7 +319,7 @@ export const FlexModalStyles = styled(ModalStyles)`
       width: 100%;
       .btm {
         button {
-          width: 8.03569rem;
+          width: 100%;
           border-radius: 0.16069rem;
           p {
             font-size: 0.75rem;
@@ -364,8 +364,14 @@ export const InfoModalStyle = styled(FlexModalStyles)`
   .one p {
     color: #fff;
   }
-  p,
-  h3 {
-    text-align: left;
+  .one {
+    display: block;
+    h3{
+      width: fit-content;
+    }
+    p,
+    h3 {
+      text-align: left;
+    }
   }
 `;

@@ -18,17 +18,28 @@ import { BACKEND_URL } from "../../libs/config";
 import axios from "axios";
 import { ButtonLoader } from "../Layout/Styles";
 import { formatSeconds } from "../../utils/formatTime";
+import Cookies from "js-cookie";
 
 export const LeaderboardPage = () => {
   const [leaderboardData, setLeaderboardData] = useState<ITableData[] | null>(
     null
   );
+  const [userScore, setUserScore] = useState<ITableData | null>(null);
   useEffect(() => {
+    const id = Cookies.get("id");
+    const token = Cookies.get("id");
+    console.log(id, token);
     axios
       .get(`${BACKEND_URL}/attempts/rankings`)
       .then((res) => {
-        // console.log(res.data);
-        setLeaderboardData(res.data);
+        if (res) {
+          const UserScore: ITableData = res.data.find(
+            (ele: ITableData) => ele.id === id
+          );
+          setUserScore(UserScore);
+          const topEntries: ITableData[] = res.data.splice(0, 50);
+          setLeaderboardData(topEntries);
+        }
       })
       /* eslint-disable @typescript-eslint/no-explicit-any */
       .catch((error: any) => console.log(error));
@@ -57,6 +68,7 @@ export const LeaderboardPage = () => {
                   key={index}
                   index={index}
                   {...ele}
+                  isUser={userScore?.id === ele.id}
                 />
               ))}
           </tbody>
@@ -83,6 +95,7 @@ export interface ITableData {
 }
 interface ITableRow extends ITableData {
   index: number;
+  isUser?: boolean;
 }
 
 export const TableRow: React.FC<ITableRow> = ({
@@ -91,9 +104,10 @@ export const TableRow: React.FC<ITableRow> = ({
   duration,
   index,
   position,
+  isUser,
 }) => {
   return (
-    <TrStyles custom={index}>
+    <TrStyles custom={index} $isUser={isUser}>
       <td className="pos">
         {position === "1" ? (
           <FirstPosition />

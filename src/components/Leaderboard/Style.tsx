@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { leaderboardVariant } from "../../animations/animations";
 import { motion } from "framer-motion";
 
@@ -17,6 +17,7 @@ export const LeaderboardPageStyles = styled(motion.div).attrs(() => ({
   align-items: flex-start;
   .cont {
     border-top: 0.5625rem solid #302f2f;
+    position: relative;
     background: #232222;
     width: 62.5%;
     height: 100%;
@@ -100,6 +101,7 @@ export const TableStyles = styled.table`
 
 interface TrStylesProps {
   custom: number;
+  $isUser?: boolean;
 }
 
 export const TrStyles = styled(motion.tr).attrs<TrStylesProps>((props) => ({
@@ -161,6 +163,15 @@ export const TrStyles = styled(motion.tr).attrs<TrStylesProps>((props) => ({
       }
     }
   }
+  ${(props) =>
+    props.$isUser &&
+    css`
+      position: sticky;
+      top: 0;
+      border-bottom: 0.5px solid #4C4B4B;
+      background: #4C4B4B;
+      z-index: 1;
+    `}
 `;
 
 export const NoDataStyles = styled.div`
@@ -176,4 +187,9 @@ export const NoDataStyles = styled.div`
     line-height: 2rem; /* 133.333% */
     letter-spacing: -0.03rem;
   }
+`;
+
+export const SingleUserStyle = styled.thead`
+  border: 2px solid #fff;
+  position: sticky;
 `;

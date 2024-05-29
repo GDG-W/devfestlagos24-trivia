@@ -259,7 +259,7 @@ export const FlexModalStyles = styled(ModalStyles)`
         gap: 0.125rem;
         span {
           color: #737373;
-          font-size: 0.625rem;
+          font-size: 0.65rem;
           font-style: normal;
           font-weight: 700;
           line-height: normal;
@@ -336,7 +336,7 @@ export const FlexModalStyles = styled(ModalStyles)`
         }
         .social {
           span {
-            font-size: 0.40375rem;
+            font-size: 0.5rem;
           }
         }
       }

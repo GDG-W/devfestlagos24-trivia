@@ -16,7 +16,7 @@ import {
   leaderboardVariant,
   textVariant,
 } from "../../animations/animations";
-import { FBIcon, InstaIcon, WhatsappIcon, XIcon } from "../Icons/Socials";
+import {DownloadIcon, WhatsappIcon, XIcon } from "../Icons/Socials";
 import { CopyToClipboard } from "../../utils/copyText";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
@@ -224,12 +224,8 @@ export const ShareModal: React.FC<IShareModal> = ({
                   <span>Twitter</span>
                 </div>
                 <div className="social">
-                  <InstaIcon />
-                  <span>Instagram</span>
-                </div>
-                <div className="social">
-                  <FBIcon />
-                  <span>Facebook</span>
+                  <DownloadIcon />
+                  <span>Download image</span>
                 </div>
                 <button type="button" onClick={copy}>
                   <CopyIcon />

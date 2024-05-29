@@ -25,10 +25,9 @@ export const LeaderboardPage = () => {
     null
   );
   const [userScore, setUserScore] = useState<ITableData | null>(null);
+  const [notOnDashboard, setNotOnDashboard] = useState(false);
   useEffect(() => {
     const id = Cookies.get("id");
-    const token = Cookies.get("id");
-    console.log(id, token);
     axios
       .get(`${BACKEND_URL}/attempts/rankings`)
       .then((res) => {
@@ -38,12 +37,17 @@ export const LeaderboardPage = () => {
           );
           setUserScore(UserScore);
           const topEntries: ITableData[] = res.data.splice(0, 20);
+          if (userScore) {
+            if (!topEntries.find((ele) => ele.id === UserScore.id)) {
+              setNotOnDashboard(true);
+            }
+          }
           setLeaderboardData(topEntries);
         }
       })
       /* eslint-disable @typescript-eslint/no-explicit-any */
       .catch((error: any) => console.log(error));
-  }, []);
+  }, [userScore]);
   return (
     <LeaderboardPageStyles>
       <div className="cont">
@@ -71,6 +75,13 @@ export const LeaderboardPage = () => {
                   isUser={userScore?.id === ele.id}
                 />
               ))}
+            {notOnDashboard && userScore && leaderboardData && (
+              <TableRow
+                index={leaderboardData.length + 1}
+                {...userScore}
+                isUser={true}
+              />
+            )}
           </tbody>
         </TableStyles>
         {leaderboardData === null && <ButtonLoader />}

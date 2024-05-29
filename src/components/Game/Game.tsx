@@ -210,12 +210,14 @@ export const GamePage = () => {
   useEffect(() => {
     setAllTiles(RandomizeData(AllTiles));
     dispatch(setHasCanceledGame(false));
+    // clear token and id here, user's can login again
+    Cookies.remove("token");
   }, []);
 
   const [time, setTime] = useState(0);
 
   useEffect(() => {
-    if (hasGameEnded && moves > 8 && time !== 5) {
+    if (hasGameEnded && moves > 8 && time > 8) {
       const token = Cookies.get("token");
       const config = {
         headers: {

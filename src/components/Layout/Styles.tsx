@@ -365,7 +365,7 @@ export const InfoModalStyle = styled(FlexModalStyles)`
     color: #fff;
   }
   .one {
-    display: block;
+    align-items: unset;
     h3{
       width: fit-content;
     }

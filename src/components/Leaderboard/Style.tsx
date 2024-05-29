@@ -58,7 +58,7 @@ export const LeaderboardPageStyles = styled(motion.div).attrs(() => ({
     margin-top: 3rem;
     .cont {
       height: auto;
-      min-height: 50vh;
+      min-height: 60vh;
       max-height: 100vh;
     }
     padding-bottom: 1.5rem;
@@ -66,7 +66,7 @@ export const LeaderboardPageStyles = styled(motion.div).attrs(() => ({
 
   @media (min-width: 998px) {
     .cont {
-      min-height: 50vh;
+      min-height: 60vh;
       max-height: 100vh;
       width: 50%;
     }

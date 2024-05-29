@@ -37,7 +37,7 @@ export const LeaderboardPage = () => {
             (ele: ITableData) => ele.id === id
           );
           setUserScore(UserScore);
-          const topEntries: ITableData[] = res.data.splice(0, 50);
+          const topEntries: ITableData[] = res.data.splice(0, 20);
           setLeaderboardData(topEntries);
         }
       })

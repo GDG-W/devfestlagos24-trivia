@@ -56,12 +56,17 @@ export const LeaderboardPageStyles = styled(motion.div).attrs(() => ({
   }
   @media (min-width: 728px) {
     margin-top: 3rem;
-    max-height: 100vh;
+    .cont {
+      height: auto;
+      min-height: 50vh;
+      max-height: 100vh;
+    }
     padding-bottom: 1.5rem;
   }
 
   @media (min-width: 998px) {
     .cont {
+      min-height: 50vh;
       max-height: 100vh;
       width: 50%;
     }
@@ -168,8 +173,8 @@ export const TrStyles = styled(motion.tr).attrs<TrStylesProps>((props) => ({
     css`
       position: sticky;
       top: 0;
-      border-bottom: 0.5px solid #4C4B4B;
-      background: #4C4B4B;
+      border-bottom: 0.5px solid #4c4b4b;
+      background: #4c4b4b;
       z-index: 1;
     `}
 `;

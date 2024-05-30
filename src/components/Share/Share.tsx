@@ -58,7 +58,7 @@ export const ShareComp = () => {
               <div className="f-two">
                 <p>Time spent:</p>
                 <h1>{formatSeconds(score.duration)}</h1>
-                <h4>{truncateString("Okoye Jude Tochukwu",25)}</h4>
+                <h4>{truncateString(username,25)}</h4>
               </div>
             </div>
             <div className="desktop">

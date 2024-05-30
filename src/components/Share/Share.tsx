@@ -23,7 +23,7 @@ export const ShareComp = () => {
       .then((res) => {
         if (res.data) {
           const userScore: ITableData = res.data.find(
-            (ele: ITableData) => ele.name === username?.toLowerCase()
+            (ele: ITableData) => ele.name.toLowerCase() === username?.toLowerCase()
           );
           console.log(userScore);
           if (userScore) {

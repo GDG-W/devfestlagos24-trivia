@@ -1,10 +1,18 @@
 import styled from "styled-components";
+import { LogoComp } from "../Layout/Layout";
 
-export const NotFound = () => {
+interface INotFound{
+  headText ?: string;
+  pText ?: string;
+}
+export const NotFound:React.FC<INotFound> = ({headText, pText}) => {
   return (
     <NotfoundStyles>
-      <h1>404 - Page Not Found</h1>
-      <p>The page you are looking for does not exist.</p>
+      <div className="logo">
+        <LogoComp />
+      </div>
+      <h1>{headText}</h1>
+      <p>{pText}</p>
     </NotfoundStyles>
   );
 };
@@ -16,18 +24,21 @@ export const NotfoundStyles = styled.div`
   align-items: center;
   flex-direction: column;
   text-align: center;
-  h1{
+  h1 {
     font-size: 2.5rem;
+    max-width: 90%;
+    text-align: center;
+    overflow: hidden;
   }
-  p{
+  p {
     font-size: 0.875rem;
   }
   @media (max-width: 728px) {
     h1 {
-        font-size: 1.25rem;
-      }
-      p{
-        width: 80%;
-      }
+      font-size: 1.25rem;
+    }
+    p {
+      width: 80%;
+    }
   }
 `;

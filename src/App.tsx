@@ -10,7 +10,15 @@ function App() {
     <Routes key={location.pathname} location={location}>
       <Route index element={<Layout />}></Route>
       <Route path="/share/:username" element={<ShareComp />}></Route>
-      <Route path="*" element={<NotFound />} />
+      <Route
+        path="*"
+        element={
+          <NotFound
+            headText="404 - Page Not Found"
+            pText="The page you are looking for does not exist."
+          />
+        }
+      />
     </Routes>
   );
 }

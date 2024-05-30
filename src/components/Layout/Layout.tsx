@@ -121,15 +121,18 @@ interface IShareModal {
   closeModal: () => void;
   restartGame: () => void;
   time: number;
+  name : string;
 }
 export const ShareModal: React.FC<IShareModal> = ({
   closeModal,
   restartGame,
   time,
+  name
 }) => {
   const [isCopied, setIsCopied] = useState(false);
   const copy = () => {
-    CopyToClipboard(`${WEBSITE_URL}`);
+    // change local_url to website_url
+    CopyToClipboard(`${WEBSITE_URL}/share/${name}`);
     setIsCopied(true);
   };
   const [show, setShow] = useState(false);

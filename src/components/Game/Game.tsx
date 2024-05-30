@@ -467,6 +467,7 @@ export const GamePage = () => {
             restartGame={reset}
             closeModal={() => setGameEnd(false)}
             time={time}
+            name={username}
           />
         )}
       </AnimatePresence>

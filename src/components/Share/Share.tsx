@@ -25,7 +25,6 @@ export const ShareComp = () => {
           const userScore: ITableData = res.data.find(
             (ele: ITableData) => ele.name.toLowerCase() === username?.toLowerCase()
           );
-          console.log(userScore);
           if (userScore) {
             setScore(userScore);
           }

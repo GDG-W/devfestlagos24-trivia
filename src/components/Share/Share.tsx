@@ -69,7 +69,7 @@ export const ShareComp = () => {
                   initial="initial"
                   animate="final2"
                 >
-                  Time spent:
+                  Best Time spent:
                 </motion.p>
                 <motion.h1
                   initial={{ scale: 0, x: -100 }} // Initial scale and position

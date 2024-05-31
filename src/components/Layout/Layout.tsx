@@ -154,7 +154,7 @@ export const ShareModal: React.FC<IShareModal> = ({
       time
     )}.
 Can you unveil the date faster than I did?
-Player here - ${WEBSITE_URL}/share/${name}`;
+Play here - ${WEBSITE_URL}/share/${name}`;
     const post = generateLink(medium, message);
     window.open(post, "_blank");
   };

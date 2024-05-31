@@ -110,7 +110,6 @@ export const GamePage = () => {
           setSteps(1);
         }
       } catch (error: any) {
-        console.log(error);
         if (error.response) {
           setEmailError({
             active: true,

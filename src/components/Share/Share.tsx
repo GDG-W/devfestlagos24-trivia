@@ -10,12 +10,16 @@ import { ITableData } from "../Leaderboard/Index";
 import { NotFound } from "../Notfound/Notfound";
 import { ButtonLoader } from "../Layout/Styles";
 import { formatSeconds } from "../../utils/formatTime";
-import { truncateString } from "../../utils/truncateString";
+import {
+  capitalizeFirstLetter,
+  truncateString,
+} from "../../utils/truncateString";
 
 export const ShareComp = () => {
   const { username } = useParams<{ username: string }>();
   const [score, setScore] = useState<ITableData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   useEffect(() => {
     setIsLoading(true);
     axios
@@ -28,6 +32,8 @@ export const ShareComp = () => {
           );
           if (userScore) {
             setScore(userScore);
+          } else {
+            setErrorMsg("The user you are looking for does not exist.");
           }
           setIsLoading(false);
         }
@@ -35,14 +41,19 @@ export const ShareComp = () => {
       /* eslint-disable @typescript-eslint/no-explicit-any */
       .catch((error: any) => {
         console.log(error);
+        if (error.response) {
+          setErrorMsg(error.response.data.message);
+        } else {
+          setErrorMsg(error.message);
+        }
         setIsLoading(false);
       });
   }, [username]);
 
   const navigate = useNavigate();
-  const goToGame =()=>{
+  const goToGame = () => {
     navigate("/");
-  }
+  };
   return (
     <>
       {!isLoading ? (
@@ -69,7 +80,7 @@ export const ShareComp = () => {
                   initial="initial"
                   animate="final2"
                 >
-                  Best Time spent:
+                  Best Time Spent:
                 </motion.p>
                 <motion.h1
                   initial={{ scale: 0, x: -100 }} // Initial scale and position
@@ -89,7 +100,7 @@ export const ShareComp = () => {
                   initial="initial"
                   animate="final2"
                 >
-                  {truncateString(username, 25)}
+                  {truncateString(capitalizeFirstLetter(username), 25)}
                 </motion.h4>
               </div>
               <motion.div
@@ -99,7 +110,9 @@ export const ShareComp = () => {
                 viewport={{ once: true }}
                 variants={textVariant}
               >
-                <button type="button" onClick={goToGame}>Play Game</button>
+                <button type="button" onClick={goToGame}>
+                  Play Game
+                </button>
               </motion.div>
             </div>
             <div className="desktop">
@@ -134,10 +147,7 @@ export const ShareComp = () => {
             </div>
           </ShareStyles>
         ) : (
-          <NotFound
-            headText={`404 - ${username} Not Found`}
-            pText="The user you are looking for does not exist."
-          />
+          <NotFound headText={`404 - ${username} Not Found`} pText={errorMsg} />
         )
       ) : (
         <ShareStyles>

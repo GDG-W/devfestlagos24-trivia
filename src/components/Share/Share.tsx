@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ShareStyles } from "./Style";
 import { motion } from "framer-motion";
-import { SlideinAnime } from "../../animations/animations";
+import { SlideinAnime, textVariant } from "../../animations/animations";
 import { LogoComp } from "../Layout/Layout";
-import { BACKEND_URL, WEBSITE_URL } from "../../libs/config";
+import { BACKEND_URL } from "../../libs/config";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ITableData } from "../Leaderboard/Index";
@@ -23,7 +23,8 @@ export const ShareComp = () => {
       .then((res) => {
         if (res.data) {
           const userScore: ITableData = res.data.find(
-            (ele: ITableData) => ele.name.toLowerCase() === username?.toLowerCase()
+            (ele: ITableData) =>
+              ele.name.toLowerCase() === username?.toLowerCase()
           );
           if (userScore) {
             setScore(userScore);
@@ -37,6 +38,11 @@ export const ShareComp = () => {
         setIsLoading(false);
       });
   }, [username]);
+
+  const navigate = useNavigate();
+  const goToGame =()=>{
+    navigate("/");
+  }
   return (
     <>
       {!isLoading ? (
@@ -49,16 +55,52 @@ export const ShareComp = () => {
             </header>
             <div className="one">
               <div className="f-one">
-                <a href={WEBSITE_URL}>
-                  <p>DevFestLagos.com/trivia</p>
-                </a>
-                <h3>Can you unveil the dates faster?</h3>
+                <motion.h3
+                  initial="initial"
+                  whileInView="final"
+                  variants={textVariant}
+                >
+                  Can you unveil the dates faster?
+                </motion.h3>
               </div>
               <div className="f-two">
-                <p>Time spent:</p>
-                <h1>{formatSeconds(score.duration)}</h1>
-                <h4>{truncateString(username,25)}</h4>
+                <motion.p
+                  variants={textVariant}
+                  initial="initial"
+                  animate="final2"
+                >
+                  Time spent:
+                </motion.p>
+                <motion.h1
+                  initial={{ scale: 0, x: -100 }} // Initial scale and position
+                  animate={{ scale: 1, x: 0 }} // Animation scale and position
+                  transition={{
+                    type: "spring",
+                    delay: 0.25,
+                    stiffness: 260,
+                    damping: 20,
+                    duration: 0.6,
+                  }} // Spring effect
+                >
+                  {formatSeconds(score.duration)}
+                </motion.h1>
+                <motion.h4
+                  variants={textVariant}
+                  initial="initial"
+                  animate="final2"
+                >
+                  {truncateString(username, 25)}
+                </motion.h4>
               </div>
+              <motion.div
+                className="btn"
+                initial="initial"
+                whileInView="final3"
+                viewport={{ once: true }}
+                variants={textVariant}
+              >
+                <button type="button" onClick={goToGame}>Play Game</button>
+              </motion.div>
             </div>
             <div className="desktop">
               <motion.div

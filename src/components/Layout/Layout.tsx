@@ -16,7 +16,7 @@ import {
   leaderboardVariant,
   textVariant,
 } from "../../animations/animations";
-import {DownloadIcon, WhatsappIcon, XIcon } from "../Icons/Socials";
+import { DownloadIcon, WhatsappIcon, XIcon } from "../Icons/Socials";
 import { CopyToClipboard } from "../../utils/copyText";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
@@ -25,7 +25,8 @@ import {
   userSelector,
 } from "../../redux/userSlice";
 import { WEBSITE_URL } from "../../libs/config";
-import { formatSeconds } from "../../utils/formatTime";
+import { formatSeconds, formatSecondsForPost } from "../../utils/formatTime";
+import { generateLink } from "../../utils/generateLink";
 
 export const LogoComp = () => {
   return (
@@ -121,13 +122,13 @@ interface IShareModal {
   closeModal: () => void;
   restartGame: () => void;
   time: number;
-  name : string;
+  name: string;
 }
 export const ShareModal: React.FC<IShareModal> = ({
   closeModal,
   restartGame,
   time,
-  name
+  name,
 }) => {
   const [isCopied, setIsCopied] = useState(false);
   const copy = () => {
@@ -144,6 +145,18 @@ export const ShareModal: React.FC<IShareModal> = ({
   const handleCancel = () => {
     closeModal();
     dispatch(setHasCanceledGame(true));
+  };
+
+  const handleShare = (
+    medium: "facebook" | "instagram" | "twitter" | "telegram" | "whatsapp"
+  ) => {
+    const message = `I just played the Devfest Lagos Trivia and completed it in ${formatSecondsForPost(
+      time
+    )}.
+Can you unveil the date faster than I did?
+Player here - ${WEBSITE_URL}/share/${name}`;
+    const post = generateLink(medium, message);
+    window.open(post, "_blank");
   };
   return (
     <FlexModalStyles>
@@ -218,11 +231,11 @@ export const ShareModal: React.FC<IShareModal> = ({
                 exit="exit"
                 key="slide-down"
               >
-                <div className="social">
+                <div className="social" onClick={() => handleShare("whatsapp")}>
                   <WhatsappIcon />
                   <span>Whatsapp</span>
                 </div>
-                <div className="social">
+                <div className="social" onClick={() => handleShare("twitter")}>
                   <XIcon />
                   <span>Twitter</span>
                 </div>

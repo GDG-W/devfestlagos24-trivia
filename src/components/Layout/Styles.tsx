@@ -253,6 +253,7 @@ export const FlexModalStyles = styled(ModalStyles)`
       }
       .social {
         justify-content: center;
+        cursor: pointer;
         align-items: center;
         display: flex;
         flex-direction: column;

@@ -1,18 +1,24 @@
 import styled from "styled-components";
 import { LogoComp } from "../Layout/Layout";
+import { motion } from "framer-motion";
+import { textVariant } from "../../animations/animations";
 
-interface INotFound{
-  headText ?: string;
-  pText ?: string;
+interface INotFound {
+  headText?: string;
+  pText?: string;
 }
-export const NotFound:React.FC<INotFound> = ({headText, pText}) => {
+export const NotFound: React.FC<INotFound> = ({ headText, pText }) => {
   return (
     <NotfoundStyles>
       <div className="logo">
         <LogoComp />
       </div>
-      <h1>{headText}</h1>
-      <p>{pText}</p>
+      <motion.h1 variants={textVariant} initial="initial" animate="final">
+        {headText}
+      </motion.h1>
+      <motion.p variants={textVariant} initial="initial" animate="final2">
+        {pText}
+      </motion.p>
     </NotfoundStyles>
   );
 };

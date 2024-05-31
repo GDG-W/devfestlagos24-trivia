@@ -27,7 +27,7 @@ export const ShareStyles = styled.main`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 3.5rem;
+    gap: 2.5rem;
   }
   .f-one {
     display: flex;
@@ -48,8 +48,8 @@ export const ShareStyles = styled.main`
       justify-content: center;
       text-decoration: none;
     }
-    a:hover{
-        text-decoration: underline 2px solid #F9AB00;
+    a:hover {
+      text-decoration: underline 2px solid #f9ab00;
     }
     h3 {
       color: #fff;
@@ -83,6 +83,21 @@ export const ShareStyles = styled.main`
   img {
     object-fit: cover;
   }
+  .btn {
+    margin-top: 1rem;
+    width: 50%;
+    button {
+      width: 100%;
+      height: 2.75rem;
+      border-radius: 0.25rem;
+      background: #4285f4;
+      color: #fff;
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+  }
   @media (max-width: 998px) {
     height: 100vh;
   }
@@ -93,8 +108,16 @@ export const ShareStyles = styled.main`
     .desktop {
       display: none;
     }
-    .one{
-        gap: 1.25rem;
+    .one {
+      gap: 1rem;
+      padding: 0rem 0.625rem 0rem 0.625rem;
+      .btn {
+        width: 100%;
+        button {
+          width: 100%;
+          height: 2.5rem;
+        }
+      }
     }
     .f-one {
       a {
@@ -106,10 +129,10 @@ export const ShareStyles = styled.main`
         font-size: 1.8rem;
       }
     }
-    .f-two{
-        h4{
-            font-size: 1.25rem;
-        }
+    .f-two {
+      h4 {
+        font-size: 1.25rem;
+      }
     }
     .imgs {
       display: flex;

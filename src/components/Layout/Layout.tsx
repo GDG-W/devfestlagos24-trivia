@@ -133,7 +133,12 @@ export const ShareModal: React.FC<IShareModal> = ({
   const [isCopied, setIsCopied] = useState(false);
   const copy = () => {
     // change local_url to website_url
-    CopyToClipboard(`${WEBSITE_URL}/share/${name}`);
+    const message = `I just played the Devfest Lagos Trivia and completed it in ${formatSecondsForPost(
+      time
+    )}.
+Can you unveil the date faster than I did?
+Play here - ${WEBSITE_URL}/share/${name}`;
+    CopyToClipboard(message);
     setIsCopied(true);
   };
   const [show, setShow] = useState(false);

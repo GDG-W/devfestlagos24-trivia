@@ -244,10 +244,7 @@ Play here - ${WEBSITE_URL}/share/${name}`;
                   <XIcon />
                   <span>Twitter</span>
                 </div>
-                <div className="social">
-                  <DownloadIcon />
-                  <span>Download image</span>
-                </div>
+                <DownloadButton />
                 <button type="button" onClick={copy}>
                   <CopyIcon />
                   <p>{isCopied ? "Copied link" : "Copy link"}</p>
@@ -359,5 +356,17 @@ export const ResetModal: React.FC<IResetModal> = ({
         </div>
       </div>
     </InfoModalStyle>
+  );
+};
+
+export const DownloadButton = () => {
+  const download =()=>{
+    console.log("downlaod");
+  }
+  return (
+    <div className="social" onClick={download}>
+      <DownloadIcon />
+      <span>Download image</span>
+    </div>
   );
 };

@@ -7,13 +7,13 @@ export const LogoStyles = styled.div`
       display: none;
     }
     img {
-      width: 100%;
+      width: 5.8125rem;
       height: auto;
     }
   }
   @media (min-width: 728px) {
     img {
-      width: 100%;
+      width: 9.375rem;
       height: auto;
       flex-shrink: 0;
     }
@@ -376,3 +376,11 @@ export const InfoModalStyle = styled(FlexModalStyles)`
     }
   }
 `;
+
+
+export const DownloadbtnStyle = styled.div`
+  .kee{
+    position: absolute;
+    left: 100vw;
+  }
+`

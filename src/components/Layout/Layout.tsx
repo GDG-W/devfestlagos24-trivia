@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  DownloadbtnStyle,
   FlexModalStyles,
   InfoModalStyle,
   LayoutStyles,
@@ -27,6 +28,9 @@ import {
 import { WEBSITE_URL } from "../../libs/config";
 import { formatSeconds, formatSecondsForPost } from "../../utils/formatTime";
 import { generateLink } from "../../utils/generateLink";
+import { toPng } from "html-to-image";
+import { PostCard } from "../Share/PostCard";
+// import { PostCard } from "../Share/PostCard";
 
 export const LogoComp = () => {
   return (
@@ -244,7 +248,7 @@ Play here - ${WEBSITE_URL}/share/${name}`;
                   <XIcon />
                   <span>Twitter</span>
                 </div>
-                <DownloadButton />
+                <DownloadButton name={name} time={time} />
                 <button type="button" onClick={copy}>
                   <CopyIcon />
                   <p>{isCopied ? "Copied link" : "Copy link"}</p>
@@ -359,14 +363,39 @@ export const ResetModal: React.FC<IResetModal> = ({
   );
 };
 
-export const DownloadButton = () => {
-  const download =()=>{
-    console.log("downlaod");
-  }
+interface IDownloadButton {
+  name: string;
+  time: number;
+}
+
+export const DownloadButton: React.FC<IDownloadButton> = ({ name, time }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleDownload = useCallback(() => {
+    if (ref.current === null) {
+      return;
+    }
+    toPng(ref.current, { cacheBust: true })
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = "my-score.png";
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [ref]);
+
   return (
-    <div className="social" onClick={download}>
-      <DownloadIcon />
-      <span>Download image</span>
-    </div>
+    <DownloadbtnStyle>
+      <div className="kee">
+        <PostCard name={name} time={time} ref={ref} />
+      </div>
+      <div className="social" onClick={handleDownload}>
+        <DownloadIcon />
+        <span>Download image</span>
+      </div>
+    </DownloadbtnStyle>
   );
 };

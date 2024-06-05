@@ -44,7 +44,7 @@ export const LayoutStyles = styled.main`
   }
   @media (max-width: 998px) {
     header {
-      padding-right: 1.25rem;
+      padding: 4%;
     }
     height: 100vh;
   }

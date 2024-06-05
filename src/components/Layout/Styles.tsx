@@ -9,6 +9,7 @@ export const LogoStyles = styled.div`
     img {
       width: 5.8125rem;
       height: auto;
+      object-fit: contain;
     }
   }
   @media (min-width: 728px) {
@@ -36,8 +37,10 @@ export const LayoutStyles = styled.main`
   header {
     display: flex;
     width: 100%;
+    position: relative;
     align-items: center;
     justify-content: space-between;
+    height: fit-content;
   }
   .main {
     height: 100%;
@@ -47,6 +50,9 @@ export const LayoutStyles = styled.main`
       padding: 4%;
     }
     height: 100vh;
+    .logo {
+      padding-top: 0.5rem;
+    }
   }
   @media (max-width: 728px) {
     .page-btns {
@@ -61,6 +67,7 @@ export const LayoutStyles = styled.main`
     .logo {
       position: absolute;
       left: 7%;
+      top: 0;
     }
   }
 `;
@@ -367,7 +374,7 @@ export const InfoModalStyle = styled(FlexModalStyles)`
   }
   .one {
     align-items: unset;
-    h3{
+    h3 {
       width: fit-content;
     }
     p,
@@ -377,10 +384,9 @@ export const InfoModalStyle = styled(FlexModalStyles)`
   }
 `;
 
-
 export const DownloadbtnStyle = styled.div`
-  .kee{
+  .kee {
     position: absolute;
     left: 100vw;
   }
-`
+`;
